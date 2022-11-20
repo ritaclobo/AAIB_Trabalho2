@@ -13,7 +13,7 @@
       #cd .. # runs during prebuild)
   #  command: streamlit run pagina.py
   
-  tasks:
+tasks:
   - init: |
       (
         #To install streamlit
@@ -34,8 +34,6 @@
         sudo pip install pyaudio
       )
 
-  
-  
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
