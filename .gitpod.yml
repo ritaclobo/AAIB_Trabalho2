@@ -1,8 +1,7 @@
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
   - init: | 
-      (
-      sudo pip3 install streamlit
+      (sudo pip3 install streamlit
       sudo apt install -y mosquitto
       sudo apt install mosquitto-clients
       sudo service mosquitto start
@@ -12,8 +11,8 @@ tasks:
       cd paho.mqtt.python
       python setup.py install
       cd .. # runs during prebuild
-  #  command: streamlit run pagina.py
-      )
+  #  command: streamlit run pagina.py)
+  
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
