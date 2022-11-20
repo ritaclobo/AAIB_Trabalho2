@@ -10,8 +10,8 @@ tasks:
       git clone https://github.com/eclipse/paho.mqtt.python.git
       cd paho.mqtt.python
       python setup.py install
-      cd .. # runs during prebuild
-  #  command: streamlit run pagina.py)
+      cd .. # runs during prebuild)
+  #  command: streamlit run pagina.py
   
 github:
   prebuilds:
