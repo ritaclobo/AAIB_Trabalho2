@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import streamlit as st
+import vega_datasets
 from vega_datasets import data
 
 from utils import chart, db
