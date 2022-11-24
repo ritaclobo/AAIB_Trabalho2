@@ -30,9 +30,9 @@ tasks:
         cd paho.mqtt.python
         python setup.py install
         #To instal pyAudio
-        sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
-        sudo apt-get install ffmpeg libav-tools
-        sudo pip install pyaudio
+        #sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+        #sudo apt-get install ffmpeg libav-tools
+        #sudo pip install pyaudio
       )
     command: streamlit run Streamlit_page.py
 
