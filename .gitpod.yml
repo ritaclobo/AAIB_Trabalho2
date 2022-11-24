@@ -34,7 +34,7 @@ tasks:
         #sudo apt-get install ffmpeg libav-tools
         #sudo pip install pyaudio
       )
-    command: streamlit run chart.py
+    command: streamlit run teste.py
 
 github:
   prebuilds:
