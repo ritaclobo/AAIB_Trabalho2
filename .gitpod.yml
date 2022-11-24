@@ -1,18 +1,19 @@
-# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+#List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 #tasks:
  # - init: | 
-  #    (sudo pip3 install streamlit
-   #   sudo apt install -y mosquitto
-    #  sudo apt install mosquitto-clients
-     # sudo service mosquitto start
-      #sudo service mosquitto status
-      #sudo pip3 install paho-mqtt
-      #git clone https://github.com/eclipse/paho.mqtt.python.git
-      #cd paho.mqtt.python
-      #python setup.py install
-      #cd .. # runs during prebuild)
+  #    sudo pip3 install streamlit
+  #    sudo apt install -y mosquitto
+  #    sudo apt install mosquitto-clients
+  #    sudo service mosquitto start
+  #    sudo service mosquitto status
+  #    sudo pip3 install paho-mqtt
+  #    git clone https://github.com/eclipse/paho.mqtt.python.git
+  #    cd paho.mqtt.python
+  #    python setup.py install
+  #    cd .. # runs during prebuild
+      
   #  command: streamlit run pagina.py
-  
+
 tasks:
   - init: |
       (
@@ -33,7 +34,7 @@ tasks:
         sudo apt-get install ffmpeg libav-tools
         sudo pip install pyaudio
       )
-  command: streamlit run Streamlit_page.py
+    command: streamlit run Streamlit_page.py
 
 github:
   prebuilds:
