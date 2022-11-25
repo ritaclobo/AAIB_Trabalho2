@@ -56,7 +56,8 @@ with st.sidebar:
         ("Standard (5-15 days)", "Express (2-5 days)")
     )
 
-
+st.button("Start", on_click= "run test.py", type="secondary", disabled=False)
+    
 st.write("Gráfico")
 
 client=mqtt.Client()
@@ -69,7 +70,11 @@ client.loop_forever()
 chart_data = pd.DataFrame(
   np.random.randn(10,2),
   columns =[f"Col{i+1}" for i in range(2)]
-)
+
+#chart_data = pd.DataFrame(
+#  np.random.randn(10,2),
+#  columns =[f"Col{i+1}" for i in range(2)]
+#)
 
 st.line_chart(chart_data)
 
