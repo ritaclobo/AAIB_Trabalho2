@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-
-self.construct_sidebar(5)
+import numpy as np
 
 st.title("Cloud Logger de Instrumentação")
 
@@ -9,7 +8,7 @@ st.title("Cloud Logger de Instrumentação")
 # Using object notation
 add_selectbox = st.sidebar.selectbox(
     "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone")
+    ("Power", "Mean frequency", "Main frequency")
 )
 
 # Using "with" notation
