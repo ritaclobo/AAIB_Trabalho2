@@ -1,15 +1,20 @@
 import streamlit as st
+import time 
 import pandas as pd
 import numpy as np
+import csv
+import matplotlib.pyplot as plt
 import paho.mqtt.client as mqtt
+from paho.mqtt import client as mqtt_client
+import threading
+from streamlit.runtime.scriptrunner.script_run_context import add_script_run_ctx
 
-# The callback for when the client receives a CONNACK response from the server.
+# MQTT
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
-    client.subscribe("luisaraujo")
+    # Subscribing in on_connect() means that if we lose the connection and reconnect then subscriptions will be renewed.
+    client.subscribe("ritalobo")
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
@@ -19,30 +24,27 @@ def on_message(client, userdata, msg):
         print(value[i])
 
 def subscribe():
-    client.subscribe(topic)
+    client.subscribe("ritalobo")
     client.on_message = on_message
     print("Subscribing")
     client.loop_forever()
-        
+   
+
+def mqtt_thread():
+    for seconds in range(7):
+            if 'mqttThread' not in st.session_state:
+                st.session_state.mqttThread = threading.Thread(target=subscribe)
+                add_script_run_ctx(st.session_state.mqttThread)
+                st.session_state.mqttThread.start()
+            time.sleep(1)
+    del st.session_state['mqttThread']
+    
 client = mqtt.Client()
 client.on_connect = on_connect
-client.on_message = on_message
-
 client.connect("mqtt.eclipseprojects.io", 1883, 60)
 
-# Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
-# Other loop*() functions are available that give a threaded interface and a manual interface.
-client.loop_forever()
-
-# Fazer run do subscribe ao mesmo tempo do streamlit
-from streamlit.runtime.scriptrunner.script_run_context import add_script_run_ctx
-    if "mqttThread" not in st.session_state:
-        st.session_state.mqttThread = th.Thread(target=MQTT_TH)
-    add_script_run_ctx(st.session_state.mqttThread)
-
-st.session_state.mqttThread.start()
-
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Streamlit
 
 st.markdown(
     """ 
@@ -75,35 +77,28 @@ st.markdown(
 
 #st.title("Cloud Logger de Instrumentação")
 
+if st.button("Start", key='start', type="secondary", disabled=False):
+            client.publish(topic,'Start')
+            placeholder2 = st.empty()
+            mqtt_thread() 
 
-# Using object notation
 add_selectbox = st.sidebar.selectbox(
-    "How would you like to be contacted?",
+    "Escolher a característica?",
     ("Power", "Mean frequency", "Main frequency")
 )
 
-# Using "with" notation
 with st.sidebar:
+    st.write("Projeto desenvolvido para a disciplina de Aplicações Avançadas de Instrumentação Biomédica")
     add_radio = st.radio(
-        "Choose a shipping method",
-        ("Standard (5-15 days)", "Express (2-5 days)")
+        "Escolher a característica",
+        ("Power", "Mean frequency")
     )
 
-st.button("Start", on_click= "run test.py", type="secondary", disabled=False)
-    
 st.write("Gráfico")
 
 chart_data = pd.DataFrame(
   np.random.randn(10,2),
   columns =[f"Col{i+1}" for i in range(2)]
 )
-#chart_data = pd.DataFrame(
-#  np.random.randn(10,2),
-#  columns =[f"Col{i+1}" for i in range(2)]
-#)
 
 st.line_chart(chart_data)
-
-
-
-
