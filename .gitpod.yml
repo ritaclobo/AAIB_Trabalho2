@@ -34,7 +34,7 @@ tasks:
         #sudo apt-get install ffmpeg libav-tools
         #sudo pip install pyaudio
       )
-    command: streamlit run testerandn.py
+    command: streamlit run teste_randn.py
 
 github:
   prebuilds:
