@@ -80,5 +80,5 @@ client = mqtt.Client()
 #client.on_connect = on_connect
 client.connect("mqtt.eclipseprojects.io", 1883, 60)
 a = [time_sf, soundwave_sf]
-a_bytearray = bytearray(a)
-client.publish("ritalobo", a_bytearray)
+#a_bytearray = bytearray(a)
+client.publish("ritalobo", a)
