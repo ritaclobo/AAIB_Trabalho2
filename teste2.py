@@ -17,11 +17,14 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("ritalobo")
 
 # The callback for when a PUBLISH message is received from the server.
+#def on_message(client, userdata, msg):
+#    print(msg.topic)
+#    value = list(msg.payload)
+#    for i in range(len(value)):
+#        print(value[i])
+
 def on_message(client, userdata, msg):
-    print(msg.topic)
-    value = list(msg.payload)
-    for i in range(len(value)):
-        print(value[i])
+    print(msg.topic+" "+str(msg.payload))
 
 def subscribe():
     client.subscribe("ritalobo")
@@ -39,7 +42,7 @@ def mqtt_thread():
             time.sleep(1)
     del st.session_state['mqttThread']
     
-client = mqtt.Client()
+client = mqtt_client.Client() 
 client.on_connect = on_connect
 client.connect("mqtt.eclipseprojects.io", 1883, 60)
 
@@ -79,7 +82,7 @@ st.markdown(
 
 if st.button("Start", key='start', type="secondary", disabled=False):
             client.publish("ritalobo",'Start')
-            placeholder2 = st.empty()
+            #placeholder2 = st.empty()
             mqtt_thread() 
 
 add_selectbox = st.sidebar.selectbox(
@@ -96,11 +99,32 @@ with st.sidebar:
 
 st.write("Gráfico")
 
-chart_data = 
 
-#chart_data = pd.DataFrame(
-#  np.random.randn(10,2),
-#  columns =[f"Col{i+1}" for i in range(2)]
-#)
+st.write(subscribe())
+mqtt_thread() 
+
+
+chart_data = pd.DataFrame(
+  np.random.randn(10,2),
+  columns =[f"Col{i+1}" for i in range(2)]
+)
+
+st.line_chart(chart_data)
+with st.sidebar:
+    st.write("Projeto desenvolvido para a disciplina de Aplicações Avançadas de Instrumentação Biomédica")
+    add_radio = st.radio(
+        "Escolher a característica",
+        ("Power", "Mean frequency")
+    )
+
+st.write("Gráfico")
+
+st.write(subscribe())
+mqtt_thread() 
+
+chart_data = pd.DataFrame(
+  np.random.randn(10,2),
+  columns =[f"Col{i+1}" for i in range(2)]
+)
 
 st.line_chart(chart_data)
