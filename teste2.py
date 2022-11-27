@@ -3,7 +3,6 @@ import time
 import pandas as pd
 import numpy as np
 import csv
-import matplotlib.pyplot as plt
 import paho.mqtt.client as mqtt
 from paho.mqtt import client as mqtt_client
 import threading
