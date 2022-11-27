@@ -78,7 +78,7 @@ st.markdown(
 #st.title("Cloud Logger de Instrumentação")
 
 if st.button("Start", key='start', type="secondary", disabled=False):
-            client.publish(topic,'Start')
+            client.publish("ritalobo",'Start')
             placeholder2 = st.empty()
             mqtt_thread() 
 
@@ -96,9 +96,11 @@ with st.sidebar:
 
 st.write("Gráfico")
 
-chart_data = pd.DataFrame(
-  np.random.randn(10,2),
-  columns =[f"Col{i+1}" for i in range(2)]
-)
+chart_data = 
+
+#chart_data = pd.DataFrame(
+#  np.random.randn(10,2),
+#  columns =[f"Col{i+1}" for i in range(2)]
+#)
 
 st.line_chart(chart_data)
