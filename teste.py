@@ -3,14 +3,6 @@ import pandas as pd
 import numpy as np
 import paho.mqtt.client as mqtt
 
-def on_connect(client, userdata, flags,rc):
-    print("Connected with result code" + str(rc))
-    client.subscribe("AAIB/test")
-    
-def on_message(client, userdata, msg):
-    print(msg.topic + "" + str(msg.payload))
-
-
 st.markdown(
     """ 
     <style>
@@ -59,13 +51,6 @@ with st.sidebar:
 st.button("Start", on_click= "run test.py", type="secondary", disabled=False)
     
 st.write("Gráfico")
-
-client=mqtt.Client()
-client_on_connect= on_connect
-client_on_message= on_message
-
-client.connect("test.mosquitto.org", 1883, 60)
-client.loop_forever()
 
 chart_data = pd.DataFrame(
   np.random.randn(10,2),
