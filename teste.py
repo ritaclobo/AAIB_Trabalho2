@@ -55,7 +55,7 @@ st.write("Gráfico")
 chart_data = pd.DataFrame(
   np.random.randn(10,2),
   columns =[f"Col{i+1}" for i in range(2)]
-
+)
 #chart_data = pd.DataFrame(
 #  np.random.randn(10,2),
 #  columns =[f"Col{i+1}" for i in range(2)]
