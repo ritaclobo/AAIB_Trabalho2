@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 import numpy as np
-import matplotlib.pyplot as np
+import matplotlib.pyplot as plt
 import librosa
 import librosa.display
 import math
@@ -12,13 +12,8 @@ from pydub.playback import play
 from pandas import DataFrame
 import pandas as pd
 
-#MQTT
-client = mqtt.Client()
-#client.on_connect = on_connect
-client.connect("mqtt.eclipseprojects.io", 1883, 60)
-a = [5,3,2]
-a_bytearray = bytearray(a)
-client.publish("ritalobo", a_bytearray)
+#Receber a mensagem de start
+
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Gravar o áudio
@@ -79,3 +74,11 @@ time_sf = numpy.linspace(start=0,
                       stop=len(soundwave_sf)/framerate_sf,
                       num=len(soundwave_sf))/2
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#MQTT
+client = mqtt.Client()
+#client.on_connect = on_connect
+client.connect("mqtt.eclipseprojects.io", 1883, 60)
+a = [time_sf, soundwave_sf]
+a_bytearray = bytearray(a)
+client.publish("ritalobo", a_bytearray)
