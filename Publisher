@@ -5,4 +5,4 @@ client = mqtt.Client()
 client.connect("mqtt.eclipseprojects.io", 1883, 60)
 a = [5,3,2]
 a_bytearray = bytearray(a)
-client.publish("luisaraujo", a_bytearray)
+client.publish("ritalobo", a_bytearray)
