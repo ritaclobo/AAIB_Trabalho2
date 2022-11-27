@@ -13,6 +13,7 @@ from pydub.playback import play
 from pandas import DataFrame
 import pandas as pd
 
+#Gravar o áudio
 # Record a few seconds of audio and save to a WAVE file.
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
@@ -50,45 +51,23 @@ wf.setframerate(RATE)
 wf.writeframes(b''.join(frames))
 wf.close()
 
+# fazer load do ficheiro de som para data, com fs a frequência de aquisição
 data, fs = librosa.load('c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav',sr=44100)
 
-
+#Características extraídas
+#soundwave é o sonograma em função do tempo
 sf_filewave = wave.open("c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav", 'r')
 signal_sf = sf_filewave.readframes(-1)
 soundwave_sf = numpy.frombuffer(signal_sf, dtype='int16')/len(data)
 
-# Mosquitto
+# Convert audio bytes to integers
+soundwave_sf = numpy.frombuffer(signal_sf, dtype='int16')/len(data)
 
-def connect_mqtt():
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            print("Connected to MQTT Broker!")
-        else:
-            print("Failed to connect, return code %d\n", rc)
+# Get the sound wave frame rate
+framerate_sf = sf_filewave.getframerate()
 
-    client = mqtt_client.Client(client_id)
-    #client.username_pw_set(username, password)
-    client.on_connect = on_connect
-    client.connect(broker, port)
-    return client
+# Find the sound wave timestamps
+time_sf = numpy.linspace(start=0,
+                      stop=len(soundwave_sf)/framerate_sf,
+                      num=len(soundwave_sf))/2
 
-def publish(client):
-    msg_count = 0
-    while True:
-        time.sleep(1)
-        msg = f"counter: {msg_count}"
-        result = client.publish(topic, msg)
-        # result: [0, 1]
-        status = result[0]
-        if status == 0:
-            print(f"Send `{msg}` to topic `{topic}`")
-        else:
-            print(f"Failed to send message to topic {topic}")
-        msg_count += 1
-
-
-client=mqtt.Client()
-client.on_connect = on_connect
-client.connect("test.mosquitto.org",1883,60)
-
-client.publish("AAIB/test",str(soundwave_sf))
