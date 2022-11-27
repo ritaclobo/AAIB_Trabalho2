@@ -61,16 +61,16 @@ data, fs = librosa.load('c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - B
 #soundwave é o sonograma em função do tempo
 sf_filewave = wave.open("c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav", 'r')
 signal_sf = sf_filewave.readframes(-1)
-soundwave_sf = numpy.frombuffer(signal_sf, dtype='int16')/len(data)
+soundwave_sf = np.frombuffer(signal_sf, dtype='int16')/len(data)
 
 # Convert audio bytes to integers
-soundwave_sf = numpy.frombuffer(signal_sf, dtype='int16')/len(data)
+soundwave_sf = np.frombuffer(signal_sf, dtype='int16')/len(data)
 
 # Get the sound wave frame rate
 framerate_sf = sf_filewave.getframerate()
 
 # Find the sound wave timestamps
-time_sf = numpy.linspace(start=0,
+time_sf = np.linspace(start=0,
                       stop=len(soundwave_sf)/framerate_sf,
                       num=len(soundwave_sf))/2
 
