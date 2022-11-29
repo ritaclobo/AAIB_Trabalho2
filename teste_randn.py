@@ -54,8 +54,9 @@ with st.sidebar:
     )
 
 def plotd():
-    df = pd.read_csv("valores_test_csv")
-    graph.line_chart(df.tail(10), x = "sample", y="valor")
+    df = pd.read_csv("teste_teste.csv", header=None)
+    df.index = ["Tempo", "Sound Wave"]
+    graph.line_chart(x = "tempo", y="valor")
 
 graph = st.empty;
 
