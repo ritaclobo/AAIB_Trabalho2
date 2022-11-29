@@ -13,7 +13,7 @@ from streamlit.runtime.scriptrunner.script_run_context import add_script_run_ctx
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     # Subscribing in on_connect() means that if we lose the connection and reconnect then subscriptions will be renewed.
-    client.subscribe("ritalobo")
+    client.subscribe("ritalobo22")
 
 # The callback for when a PUBLISH message is received from the server.
 #def on_message(client, userdata, msg):
@@ -90,12 +90,24 @@ add_selectbox = st.sidebar.selectbox(
 )
 
 with st.sidebar:
-    st.write("Projeto desenvolvido para a disciplina de Aplicações Avançadas de Instrumentação Biomédica")
+    st.write("Projeto desenvolvido para a disciplina de Aplicações Avançadas de Instrumentação Biomédica.")
+    st.write("O botão Start permite começar a gravação de som com o computador durante um certo número de segundos pré-definido.")
+    st.write("Para acabar a aquisição pode carregar no botão de Stop.")
     add_radio = st.radio(
         "Escolher a característica",
         ("Power", "Mean frequency")
     )
 
+st.write("Este primeiro gráfico represenda a amplitude da onda de som que foi gravada em função do tempo de gravação.") 
+
+def plotd():
+    df = pd.read_csv("teste_teste.csv", header=None)
+    df.index = ["Tempo", "Sound Wave"]
+    final_df=df.T
+    st.line_chart(final_df, x = "Tempo", y="Sound Wave")
+
+graph = st.empty;
+plotd()
 st.write("Gráfico")
 
 
