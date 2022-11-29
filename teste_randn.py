@@ -59,7 +59,7 @@ def plotd():
     graph.line_chart(x = "tempo", y="valor")
 
 graph = st.empty;
-
+plotd()
 
 st.write("Gráfico")
 
