@@ -55,7 +55,7 @@ with st.sidebar:
 def plotd():
     df = pd.read_csv("teste_teste.csv", header=None)
     df.index = ["Tempo", "Sound Wave"]
-    graph.line_chart(x = "tempo", y="valor")
+    graph.line_chart(df, x = "tempo", y="valor")
 
 graph = st.empty;
 plotd()
