@@ -52,10 +52,13 @@ with st.sidebar:
         ("Power", "Mean frequency")
     )
 
+st.write("Este primeiro gráfico represenda a amplitude da onda de som que foi gravada em função do tempo de gravação.")   
+ 
 def plotd():
     df = pd.read_csv("teste_teste.csv", header=None)
     df.index = ["Tempo", "Sound Wave"]
-    graph.line_chart(df, x = "tempo", y="valor")
+    final_df=df.T
+    st.line_chart(final_df, x = "Tempo", y="Sound Wave")
 
 graph = st.empty;
 plotd()
