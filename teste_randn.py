@@ -46,11 +46,14 @@ add_selectbox = st.sidebar.selectbox(
 )
 
 with st.sidebar:
-    st.write("Projeto desenvolvido para a disciplina de Aplicações Avançadas de Instrumentação Biomédica")
+    st.write("Projeto desenvolvido para a disciplina de Aplicações Avançadas de Instrumentação Biomédica.")
+    st.write("O botão Start permite começar a gravação de som com o computador durante um certo número de segundos pré-definido.")
+    st.write("Para acabar a aquisição pode carregar no botão de Stop.")
     add_radio = st.radio(
         "Escolher a característica",
         ("Power", "Mean frequency")
     )
+
 
 st.write("Este primeiro gráfico represenda a amplitude da onda de som que foi gravada em função do tempo de gravação.")   
  
