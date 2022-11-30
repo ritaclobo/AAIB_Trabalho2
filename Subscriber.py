@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import time
 import csv
 import json
+import numpy 
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -15,10 +16,11 @@ def on_message(client, userdata, msg):
     print("received message =" + str(msg.payload.decode()))
     print(msg.payload.decode("utf-8"))
     print("")
-    #res = json.loads(msg.payload.decode()) #Retornar à lista
-    #with open("outro_teste.csv", "w") as f:
-        #write = csv.writer(f)
-        #write.writerows(res)
+    res = json.loads(msg.payload.decode()) #Retornar à lista
+    print("outro print")
+    with open("outro_teste2.csv", "w") as f:
+        write = csv.writer(f)
+        write.writerows(res)
     
     print("Done")
 
