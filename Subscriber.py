@@ -18,12 +18,11 @@ def on_message(client, userdata, msg):
     print(msg.payload.decode("utf-8"))
     print("")
     #res = json.loads(msg.payload.decode()) #Retornar à lista
-    #l20001=[np.array(res[0]),np.array(res[1])] #passar interiores para array
-    #write_data(l20001)  #escrever em csv
+    #with open("outro_teste.csv", "w") as f:
+        #write = csv.writer(f)
+        #write.writerows(res)
+    
     print("Done")
-
-def write_data(a):
-    numpy.savetxt("teste10.csv", a, delimiter=",")
 
 client = mqtt.Client()
 client.on_connect = on_connect
