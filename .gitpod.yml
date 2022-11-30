@@ -34,7 +34,8 @@ tasks:
         #sudo apt-get install ffmpeg libav-tools
         #sudo pip install pyaudio
       )
-    command: streamlit run teste_randn.py
+    #command: streamlit run teste_randn.py
+    command: run Subscribe.py
 
 github:
   prebuilds:
