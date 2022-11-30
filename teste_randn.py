@@ -54,23 +54,20 @@ with st.sidebar:
         ("Power", "Mean frequency")
     )
 
-
 st.write("Este primeiro gráfico represenda a amplitude da onda de som que foi gravada em função do tempo de gravação.")   
  
 def plotd():
-    df = pd.read_csv("graph.csv"", header=None)
-    df.index = ["Tempo", "Sound Wave"]
+    df = pd.read_csv("outro_teste.csv", header=None)
+    df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE"]
     final_df=df.T
     st.line_chart(final_df, x = "Tempo", y="Sound Wave")
 
 graph = st.empty;
 plotd()
 
-st.write("Gráfico")
+st.write("O segundo gráfico representa a Energia RMS")
 
-chart_data = pd.DataFrame(
-  np.random.randn(10,2),
-  columns =[f"Col{i+1}" for i in range(2)]
-)
-
-st.line_chart(chart_data)
+df = pd.read_csv("outro_teste.csv", header=None)
+df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE"]
+final_df=df.T
+st.line_chart(final_df, x = "Tempo RMSE", y="RMSE")
