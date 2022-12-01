@@ -14,6 +14,10 @@ tasks:
         cd paho.mqtt.python
         python setup.py install
         pip3.8 install numpy
+        sudo apt-get install libsndfile1
+        sudo pip install librosa
+        
+        sudo pip install wave
       )
     #command: streamlit run teste_randn.py
     command: python Subscriber.py
