@@ -1,10 +1,9 @@
 import paho.mqtt.client as mqtt
-import time
-from random import uniform
 import numpy as np
 import librosa
 import pyaudio
 import wave 
+import statistics
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -23,10 +22,10 @@ def main():
     # Record a few seconds of audio and save to a WAVE file.
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
-    CHANNELS = 2
+    CHANNELS = 2 
     RATE = 11025
     RECORD_SECONDS = 2 # valor que queremos 600
-    WAVE_OUTPUT_FILENAME = ("Som.wav")
+    WAVE_OUTPUT_FILENAME = ("c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav")
 
     p = pyaudio.PyAudio()
 
@@ -56,13 +55,30 @@ def main():
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
-
+    
     # fazer load do ficheiro de som para data, com fs a frequência de aquisição
-    data, fs = librosa.load("Som.wav")
+    data, fs = librosa.load('c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav')
 
     #Características extraídas
+    
+    #FFT
+    
+    n = len(data) # length of the signal
+    k = np.arange(n)
+    T = n/fs
+    frq = k/T # two sides frequency range
+    frq = frq[:len(frq)//2] # one side frequency range
+    
+    Y = np.fft.fft(data)/n # dft and normalization
+    Y = Y[:n//2]
+    
+    #Frequência fundamental
+    f0 = librosa.yin(data, fmin = librosa.note_to_hz('C2'), fmax= librosa.note_to_hz('C7'), sr = fs)
+    
+    FO_mean=[statistics.median(f0.tolist())]
+    
     #soundwave é o sonograma em função do tempo
-    sf_filewave = wave.open("Som.wav", 'r')
+    sf_filewave = wave.open("c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav", 'r')
     signal_sf = sf_filewave.readframes(-1)
     soundwave_sf = np.frombuffer(signal_sf, dtype='int16')/len(data)
 
@@ -83,7 +99,7 @@ def main():
     a=[time1,sound]
 
     #RMSE
-    y, fs = librosa.load("Som.wav".wav')
+    y, fs = librosa.load('c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav')
 
     rmse = librosa.feature.rms(y=y)[0]
     time_rmse = librosa.times_like(rmse)
@@ -92,8 +108,10 @@ def main():
     rmse_list=rmse.tolist()
 
     b=[time1, sound, time2, rmse_list]
+    
+    c=[time_sf.tolist(), soundwave_sf.tolist(), time_rmse.tolist(), rmse.tolist(), abs(Y).tolist(), frq.tolist(), FO_mean]
 
-    client.publish("ritalobo22", str(b) )
+    client.publish("ritalobo22", str(c) )
 
     print("Acabei")
 
@@ -103,4 +121,3 @@ client.on_message = on_message
 
 client.connect("mqtt.eclipseprojects.io", 1883, 60)
 client.loop_forever()
-
