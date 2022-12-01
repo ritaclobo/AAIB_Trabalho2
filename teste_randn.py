@@ -18,11 +18,21 @@ with st.sidebar:
     st.write("Escolher a característica:")
     checkbox_one = st.checkbox("Sonograma")
     checkbox_two = st.checkbox("RMSE")
+    checkbox_three = st.checkbox("Dados Adquiridos")
+
+#Botão Start
+start_button = st.empty()
+if start_button.button("Start", key='start', type="secondary", disabled=False):
+    client = mqtt.Client("Comando_gravar")
+    client.connect("mqtt.eclipseprojects.io", 1883, 60)
+    client.publish("ritalobo", payload = 'Start')
+
+#Dataframe
+df = pd.read_csv("outro_teste2.csv", header=None)
+df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE"]
+final_df=df.T
 
 def plotd():
-    df = pd.read_csv("outro_teste2.csv", header=None)
-    df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE"]
-    final_df=df.T
     st.line_chart(final_df, x = "Tempo", y="Sound Wave")
 
 graph = st.empty;
@@ -33,7 +43,10 @@ if checkbox_one:
 
 if checkbox_two:
     st.write("O segundo gráfico representa a Energia RMS")
-    df = pd.read_csv("outro_teste2.csv", header=None)
-    df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE"]
-    final_df=df.T
     st.line_chart(final_df, x = "Tempo RMSE", y="RMSE")
+
+if checkbox_three:
+    st.write("Esta é a DataFrame com todos os dados que foram retirados a partir do ficheiro de som:", final_df)
+
+#col1, col2 = st.columns([2,2])
+#    with col1:
