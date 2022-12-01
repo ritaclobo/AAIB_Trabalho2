@@ -26,7 +26,7 @@ def main():
     CHANNELS = 2
     RATE = 11025
     RECORD_SECONDS = 2 # valor que queremos 600
-    WAVE_OUTPUT_FILENAME = ("c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav")
+    WAVE_OUTPUT_FILENAME = ("Som.wav")
 
     p = pyaudio.PyAudio()
 
@@ -58,11 +58,11 @@ def main():
     wf.close()
 
     # fazer load do ficheiro de som para data, com fs a frequência de aquisição
-    data, fs = librosa.load('c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav')
+    data, fs = librosa.load("Som.wav")
 
     #Características extraídas
     #soundwave é o sonograma em função do tempo
-    sf_filewave = wave.open("c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav", 'r')
+    sf_filewave = wave.open("Som.wav", 'r')
     signal_sf = sf_filewave.readframes(-1)
     soundwave_sf = np.frombuffer(signal_sf, dtype='int16')/len(data)
 
@@ -83,7 +83,7 @@ def main():
     a=[time1,sound]
 
     #RMSE
-    y, fs = librosa.load('c:/Users/Rita Lobo/Documents/Rita Lobo/Universidade - Biomédica/5º ano/AAIB/projeto.wav')
+    y, fs = librosa.load("Som.wav".wav')
 
     rmse = librosa.feature.rms(y=y)[0]
     time_rmse = librosa.times_like(rmse)
@@ -103,3 +103,4 @@ client.on_message = on_message
 
 client.connect("mqtt.eclipseprojects.io", 1883, 60)
 client.loop_forever()
+
