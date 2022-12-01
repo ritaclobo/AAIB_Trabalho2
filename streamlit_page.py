@@ -19,7 +19,8 @@ with st.sidebar:
     checkbox_one = st.checkbox("Sonograma")
     checkbox_two = st.checkbox("RMSE")
     checkbox_three = st.checkbox("Dados Adquiridos")
-
+    checkbox_four = st.checkbox("FFT")
+    
 #Botão Start
 start_button = st.empty()
 if start_button.button("Start", key='start', type="secondary", disabled=False):
@@ -29,7 +30,7 @@ if start_button.button("Start", key='start', type="secondary", disabled=False):
 
 #Dataframe
 df = pd.read_csv("outro_teste2.csv", header=None)
-df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE"]
+df.index = ["Tempo", "Sound Wave", "Tempo RMSE" ,"RMSE", "Y", "FRQ", "F0"]
 final_df=df.T
 
 def plotd():
@@ -48,5 +49,13 @@ if checkbox_two:
 if checkbox_three:
     st.write("Esta é a DataFrame com todos os dados que foram retirados a partir do ficheiro de som:", final_df)
 
-#col1, col2 = st.columns([2,2])
-#    with col1:
+col1, col2 = st.columns([2,2])
+with col1:
+    if checkbox_four:
+        st.write("Este é o FFT do sinal.")
+        st.line_chart(final_df, x = "FRQ", y="Y")
+
+f0=final_df["F0"][0]
+with col2:
+    if checkbox_four:
+        st.write("A frequência fundamental é : ", f"{f0}")
